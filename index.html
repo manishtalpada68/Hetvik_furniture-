@@ -1,1 +1,682 @@
-in
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Hetvik Furniture | Master Carpenter Manish Talpada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+        :root {
+            --bg-primary: #0B0A0A;
+            --bg-secondary: #151210;
+            --text-primary: #F0EFEA;
+            --text-secondary: #bbb8b0;
+            --card-bg: rgba(20,18,16,0.85);
+            --border-color: #2a261f;
+            --gold: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --navbar-bg: rgba(0,0,0,0.75);
+            --hero-overlay: radial-gradient(circle at 80% 30%, rgba(20,15,8,0.6), #030202);
+        }
+        body.light-mode {
+            --bg-primary: #F8F5F0;
+            --bg-secondary: #FFFFFF;
+            --text-primary: #1E1B16;
+            --text-secondary: #5A5548;
+            --card-bg: rgba(255,255,245,0.95);
+            --border-color: #E0D6C5;
+            --navbar-bg: rgba(255,252,245,0.9);
+            --hero-overlay: radial-gradient(circle at 80% 30%, rgba(245,242,235,0.7), #F0EDE3);
+        }
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        /* DRAGGABLE WIDGETS */
+        .draggable-widget {
+            position: fixed;
+            z-index: 1000;
+            cursor: grab;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
+            padding: 8px;
+            border: 1px solid var(--gold);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+        .draggable-widget:active { cursor: grabbing; }
+        .theme-toggle-drag {
+            bottom: 20px;
+            left: 20px;
+            background: var(--gold);
+            color: #0B0A0A;
+            width: 54px;
+            height: 54px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            border: none;
+        }
+        .lang-switch-drag {
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            padding: 6px 14px;
+        }
+        .lang-btn-drag {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 40px;
+            transition: 0.2s;
+            font-size: 0.85rem;
+        }
+        .lang-btn-drag.active {
+            background: var(--gold);
+            color: #0B0A0A;
+        }
+        .lang-btn-drag:hover {
+            background: var(--gold);
+            color: #0B0A0A;
+        }
+        .loader-master {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #080706;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 2rem;
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .loader-video-custom {
+            width: 200px;
+            height: 200px;
+            border-radius: 30px;
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(218, 165, 32, 0.6);
+            border: 2px solid #D4AF37;
+        }
+        .loader-text-animate {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #E4C580, #B8860B);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: glitch 1.2s infinite;
+        }
+        @keyframes glitch {
+            0% { text-shadow: -2px 0 #ff6b6b, 2px 0 #4ecdc4; opacity: 0.9;}
+            50% { text-shadow: 2px 0 #ff6b6b, -2px 0 #4ecdc4; opacity: 1;}
+            100% { text-shadow: 0px 0 #ff6b6b, 0px 0 #4ecdc4;}
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            background: var(--navbar-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--gold-glow);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo h1 { font-size: 1.8rem; font-weight: 800; }
+        .gold { color: var(--gold); }
+        .nav-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: var(--text-primary); font-weight: 600; transition: 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .menu-icon { display: none; font-size: 1.8rem; cursor: pointer;}
+        .hero-wrap {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem 5%;
+            background: var(--hero-overlay);
+        }
+        .hero-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 3rem;
+        }
+        .hero-left { flex: 1.2; }
+        .hero-badge {
+            background: rgba(212,175,55,0.2);
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+        .hero-left h2 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; }
+        .hero-highlight { color: var(--gold); border-bottom: 3px solid var(--gold);}
+        .hero-desc { font-size: 1.1rem; color: var(--text-secondary); margin: 1.5rem 0; }
+        .stats { display: flex; gap: 2rem; margin: 2rem 0; }
+        .stats div p:first-child { font-size: 2rem; font-weight: 800; color: var(--gold);}
+        .btn {
+            background: var(--gold);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 60px;
+            font-weight: 700;
+            color: #0B0A0A;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+        .btn-outline { background: transparent; border: 2px solid var(--gold); color: var(--gold); }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.05);}
+        .hero-right {
+            flex: 0.9;
+            background: var(--card-bg);
+            backdrop-filter: blur(6px);
+            border-radius: 40px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--gold-glow);
+        }
+        /* Upload Section */
+        .upload-section {
+            background: var(--bg-secondary);
+            margin: 2rem 5%;
+            border-radius: 56px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .upload-area {
+            border: 2px dashed var(--gold);
+            border-radius: 32px;
+            padding: 2rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .upload-area.drag-over {
+            background: rgba(212,175,55,0.2);
+            border-color: var(--gold);
+        }
+        /* Gallery Box - Show All Uploaded Images */
+        .gallery-box {
+            background: var(--bg-secondary);
+            margin: 2rem 5%;
+            border-radius: 56px;
+            padding: 2rem;
+        }
+        .gallery-box h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .gallery-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+        }
+        .gallery-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .empty-gallery {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+        .services-show {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 1rem 5%;
+        }
+        .service-card-unique {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 32px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .service-card-unique i { font-size: 2.8rem; color: var(--gold); margin-bottom: 1rem;}
+        .section-title { font-size: 2.5rem; font-weight: 800; text-align: center; margin-bottom: 2rem; }
+        .section-title span { color: var(--gold); }
+        .reviews-unique {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 2rem;
+            padding: 1rem 5% 3rem;
+        }
+        .person-review {
+            background: var(--card-bg);
+            border-radius: 32px;
+            padding: 1.8rem;
+            border-left: 6px solid var(--gold);
+        }
+        .person-img { width: 70px; height: 70px; border-radius: 50%; overflow: hidden; margin-bottom: 1rem; }
+        .person-img img { width: 100%; height: 100%; object-fit: cover; }
+        .booking-zone {
+            background: var(--bg-secondary);
+            margin: 2rem 5%;
+            border-radius: 56px;
+            padding: 3rem;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 18px;
+            margin-bottom: 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 60px;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+        footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border-color); }
+        @media (max-width: 850px) {
+            .nav-links { display: none; }
+            .menu-icon { display: block; }
+            .hero-left h2 { font-size: 2rem; }
+        }
+        .mobile-nav-panel {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 75%;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 1000;
+            padding: 5rem 2rem;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+        .mobile-nav-panel a { color: var(--text-primary); text-decoration: none; font-size: 1.4rem; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<div class="loader-master" id="loaderMaster">
+    <video class="loader-video-custom" autoplay muted loop playsinline>
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-man-working-with-wood-in-a-carpentry-workshop-32851-large.mp4" type="video/mp4">
+    </video>
+    <div class="loader-text-animate">HETVIK FURNITURE</div>
+    <div style="font-weight: 300;">Manish Talpada • Master Artisan 🪚</div>
+    <div><i class="fas fa-cog fa-spin fa-2x" style="color:#D4AF37"></i></div>
+</div>
+
+<!-- DRAGGABLE DARK MODE -->
+<div id="darkModeDrag" class="draggable-widget theme-toggle-drag">
+    <i class="fas fa-moon"></i>
+</div>
+
+<!-- DRAGGABLE LANGUAGE SWITCHER -->
+<div id="langDrag" class="draggable-widget lang-switch-drag">
+    <button class="lang-btn-drag active" data-lang="en">EN</button>
+    <button class="lang-btn-drag" data-lang="hi">हिंदी</button>
+    <button class="lang-btn-drag" data-lang="gu">ગુજરાતી</button>
+</div>
+
+<div class="navbar">
+    <div class="logo"><h1>Hetvik <span class="gold">Furniture</span></h1></div>
+    <div class="nav-links">
+        <a href="#home" data-key="nav_home">Home</a>
+        <a href="#services" data-key="nav_services">Services</a>
+        <a href="#uploadSection" data-key="nav_upload">Upload</a>
+        <a href="#galleryBox" data-key="nav_gallery">Gallery</a>
+        <a href="#reviews" data-key="nav_reviews">Reviews</a>
+        <a href="#booking" data-key="nav_book">Book</a>
+        <a href="#contact" data-key="nav_contact">Contact</a>
+    </div>
+    <div class="menu-icon" id="mobileMenuBtn"><i class="fas fa-bars"></i></div>
+</div>
+<div class="mobile-nav-panel" id="mobilePanel">
+    <div style="font-size:2rem; text-align:right; cursor:pointer;" id="closeMobile">&times;</div>
+    <a href="#home">Home</a><a href="#services">Services</a><a href="#uploadSection">Upload</a>
+    <a href="#galleryBox">Gallery</a><a href="#reviews">Reviews</a><a href="#booking">Book</a><a href="#contact">Contact</a>
+</div>
+
+<!-- Hero Section -->
+<section id="home">
+    <div class="hero-wrap">
+        <div class="hero-grid">
+            <div class="hero-left">
+                <div class="hero-badge" data-key="hero_badge"><i class="fas fa-crown"></i> 25+ Years Legacy</div>
+                <h2><span data-key="hero_title1">Where</span> <span class="hero-highlight" data-key="hero_title2">Wood</span> <span data-key="hero_title3">Meets Modern Soul</span></h2>
+                <p class="hero-desc" data-key="hero_desc">Advanced carpentry by Manish Talpada — custom furniture, kitchen cabinets, bedroom sets, and premium interior woodwork.</p>
+                <div class="stats">
+                    <div><p>520+</p><span data-key="stat_projects">Projects</span></div>
+                    <div><p>100%</p><span data-key="stat_satisfaction">Satisfaction</span></div>
+                    <div><p>25 Yrs</p><span data-key="stat_experience">Experience</span></div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" id="heroBookBtn"><i class="fab fa-whatsapp"></i> <span data-key="book_btn">Book via WhatsApp</span></button>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div style="background:#2a2418; border-radius: 32px; padding: 20px;">
+                    <i class="fas fa-tree" style="font-size: 5rem; color: var(--gold);"></i>
+                    <p><i class="fas fa-tools"></i> <span data-key="hero_tag">Precision & Passion</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+    <h2 class="section-title"><span data-key="services_title">Our Signature Services</span></h2>
+    <div class="services-show">
+        <div class="service-card-unique"><i class="fas fa-couch"></i><h3 data-key="service1">Bespoke Furniture</h3><p data-key="service1_desc">Tables, Chairs, Sofas</p></div>
+        <div class="service-card-unique"><i class="fas fa-kitchen-set"></i><h3 data-key="service2">Modular Kitchen</h3><p data-key="service2_desc">Cabinets & Shutters</p></div>
+        <div class="service-card-unique"><i class="fas fa-bed"></i><h3 data-key="service3">Bedroom Suites</h3><p data-key="service3_desc">Wardrobes, Headboards</p></div>
+        <div class="service-card-unique"><i class="fas fa-door-open"></i><h3 data-key="service4">Premium Doors</h3><p data-key="service4_desc">Solid Wood Designs</p></div>
+    </div>
+</section>
+
+<!-- UPLOAD SECTION - Drag & Drop -->
+<section id="uploadSection">
+    <div class="upload-section">
+        <h3><i class="fas fa-cloud-upload-alt"></i> <span data-key="upload_title">Upload Images (Auto Store in Gallery)</span></h3>
+        <div class="upload-area" id="uploadArea">
+            <i class="fas fa-images" style="font-size: 3rem; color: var(--gold);"></i>
+            <p data-key="upload_text">Click or drag & drop images from your folder (JPG, PNG, WEBP)</p>
+            <input type="file" id="fileInput" multiple accept="image/jpeg,image/png,image/webp,image/jpg" style="display:none">
+            <button class="btn btn-outline" id="selectFilesBtn" style="margin-top: 15px;"><i class="fas fa-folder-open"></i> <span data-key="select_btn">Select from Folder</span></button>
+        </div>
+    </div>
+</section>
+
+<!-- GALLERY BOX - Show All Uploaded Images -->
+<section id="galleryBox">
+    <div class="gallery-box">
+        <h3><i class="fas fa-photo-video"></i> <span data-key="gallery_title">📸 All Uploaded Images</span> <span id="imageCount"></span></h3>
+        <div id="allImagesGallery" class="gallery-grid">
+            <div class="empty-gallery">No images uploaded yet. Please upload from above section.</div>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews -->
+<section id="reviews">
+    <h2 class="section-title"><span data-key="reviews_title">Client Love</span></h2>
+    <div class="reviews-unique">
+        <div class="person-review"><div class="person-img"><img src="https://randomuser.me/api/portraits/women/33.jpg" alt="client"></div><div style="color:var(--gold);">★★★★★</div><p data-key="review1_text">"Outstanding craftsmanship! Manish bhai is a legend."</p><strong>- Sneha Mehta</strong></div>
+        <div class="person-review"><div class="person-img"><img src="https://randomuser.me/api/portraits/men/45.jpg" alt="client"></div><div style="color:var(--gold);">★★★★★</div><p data-key="review2_text">"Perfect finish & timely delivery. Highly recommend!"</p><strong>- Rajesh K.</strong></div>
+        <div class="person-review"><div class="person-img"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="client"></div><div style="color:var(--gold);">★★★★★</div><p data-key="review3_text">"Modular kitchen is stunning! Thank you Hetvik Furniture."</p><strong>- Priya Sharma</strong></div>
+        <div class="person-review"><div class="person-img"><img src="https://randomuser.me/api/portraits/men/91.jpg" alt="client"></div><div style="color:var(--gold);">★★★★★</div><p data-key="review4_text">"Best carpentry service in Gujarat! Very professional."</p><strong>- Vikram Singh</strong></div>
+    </div>
+</section>
+
+<!-- Booking -->
+<section id="booking">
+    <div class="booking-zone">
+        <h2><i class="fab fa-whatsapp"></i> <span data-key="booking_title">Book Your Consultation</span></h2>
+        <p data-key="booking_desc">Name, Mobile, Address, Work details — sab WhatsApp pe aa jayegi</p>
+        <form id="whatsappBookingForm">
+            <input type="text" id="fullname" placeholder="Full Name *" required>
+            <input type="tel" id="mobileno" placeholder="WhatsApp Number *" required>
+            <input type="text" id="address" placeholder="City / Address *" required>
+            <select id="workType">
+                <option data-key="opt_furniture">Custom Furniture</option>
+                <option data-key="opt_kitchen">Kitchen Cabinetry</option>
+                <option data-key="opt_bedroom">Bedroom & Wardrobe</option>
+                <option data-key="opt_flooring">Wooden Flooring</option>
+                <option data-key="opt_interior">Complete Home Interior</option>
+            </select>
+            <textarea rows="2" id="workDetail" placeholder="Kya banwana hai? (e.g. dining table, modular kitchen...)" required></textarea>
+            <button type="submit" class="btn" style="background:#25D366; width:100%;"><i class="fab fa-whatsapp"></i> <span data-key="send_btn">Send on WhatsApp</span></button>
+        </form>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+    <div class="booking-zone" style="background: var(--bg-secondary);">
+        <div style="text-align:center;">
+            <h2><span data-key="contact_title">Let's Craft Your Dream</span></h2>
+            <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin: 2rem 0;">
+                <a href="tel:9023449884" class="btn btn-outline"><i class="fas fa-phone-alt"></i> <span data-key="call_btn">Call Now</span></a>
+                <a href="https://www.instagram.com/iammanishtalpada" target="_blank" class="btn"><i class="fab fa-instagram"></i> @iammanishtalpada</a>
+                <a href="https://wa.me/919023449884" target="_blank" class="btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Hetvik Furniture — Advanced Carpentry by Manish Talpada | <i class="fab fa-instagram"></i> @iammanishtalpada</p>
+</footer>
+
+<script>
+    // ==================== MULTI LANGUAGE ====================
+    const translations = {
+        en: {
+            nav_home: "Home", nav_services: "Services", nav_upload: "Upload", nav_gallery: "Gallery", nav_reviews: "Reviews", nav_book: "Book", nav_contact: "Contact",
+            hero_badge: "🏆 25+ Years Legacy", hero_title1: "Where", hero_title2: "Wood", hero_title3: "Meets Modern Soul",
+            hero_desc: "Advanced carpentry by Manish Talpada — custom furniture, kitchen cabinets, bedroom sets, and premium interior woodwork.",
+            stat_projects: "Projects", stat_satisfaction: "Satisfaction", stat_experience: "Experience",
+            book_btn: "Book via WhatsApp", hero_tag: "Precision & Passion",
+            services_title: "Our Signature Services", service1: "Bespoke Furniture", service1_desc: "Tables, Chairs, Sofas",
+            service2: "Modular Kitchen", service2_desc: "Cabinets & Shutters", service3: "Bedroom Suites", service3_desc: "Wardrobes, Headboards",
+            service4: "Premium Doors", service4_desc: "Solid Wood Designs",
+            upload_title: "Upload Images (Auto Store in Gallery)", upload_text: "Click or drag & drop images from your folder (JPG, PNG, WEBP)", select_btn: "Select from Folder",
+            gallery_title: "📸 All Uploaded Images", reviews_title: "Client Love",
+            review1_text: '"Outstanding craftsmanship! Manish bhai is a legend."', review2_text: '"Perfect finish & timely delivery. Highly recommend!"',
+            review3_text: '"Modular kitchen is stunning! Thank you Hetvik Furniture."', review4_text: '"Best carpentry service in Gujarat! Very professional."',
+            booking_title: "Book Your Consultation", booking_desc: "Name, Mobile, Address, Work details — sab WhatsApp pe aa jayegi",
+            opt_furniture: "Custom Furniture", opt_kitchen: "Kitchen Cabinetry", opt_bedroom: "Bedroom & Wardrobe", opt_flooring: "Wooden Flooring", opt_interior: "Complete Home Interior",
+            send_btn: "Send on WhatsApp", contact_title: "Let's Craft Your Dream", call_btn: "Call Now"
+        },
+        hi: {
+            nav_home: "होम", nav_services: "सेवाएं", nav_upload: "अपलोड", nav_gallery: "गैलरी", nav_reviews: "समीक्षा", nav_book: "बुकिंग", nav_contact: "संपर्क",
+            hero_badge: "🏆 25+ वर्षों की विरासत", hero_title1: "जहाँ", hero_title2: "लकड़ी", hero_title3: "आधुनिक आत्मा से मिलती है",
+            hero_desc: "मनीष तलपड़ा द्वारा उन्नत बढ़ईगीरी - कस्टम फर्नीचर, मॉड्यूलर किचन, बेडरूम सेट और प्रीमियम इंटीरियर वुडवर्क।",
+            stat_projects: "प्रोजेक्ट्स", stat_satisfaction: "संतुष्टि", stat_experience: "अनुभव",
+            book_btn: "व्हाट्सएप पर बुक करें", hero_tag: "सटीकता और जुनून",
+            services_title: "हमारी विशेष सेवाएं", service1: "कस्टम फर्नीचर", service1_desc: "टेबल, कुर्सियाँ, सोफे",
+            service2: "मॉड्यूलर किचन", service2_desc: "कैबिनेट और शटर", service3: "बेडरूम सूट", service3_desc: "अलमारी, हेडबोर्ड",
+            service4: "प्रीमियम दरवाजे", service4_desc: "ठोस लकड़ी डिजाइन",
+            upload_title: "छवियाँ अपलोड करें (गैलरी में ऑटो स्टोर)", upload_text: "अपने फ़ोल्डर से छवियाँ क्लिक करें या खींचें और छोड़ें", select_btn: "फ़ोल्डर से चुनें",
+            gallery_title: "📸 सभी अपलोड की गई छवियाँ", reviews_title: "ग्राहक प्रेम",
+            review1_text: '"शानदार शिल्प कौशल! मनीष भाई एक दिग्गज हैं।"', review2_text: '"बिल्कुल सही फिनिश और समय पर डिलीवरी।"',
+            review3_text: '"मॉड्यूलर किचन शानदार है! धन्यवाद।"', review4_text: '"गुजरात में सबसे अच्छी बढ़ईगीरी सेवा!"',
+            booking_title: "अपनी सलाह बुक करें", booking_desc: "नाम, मोबाइल, पता, काम की जानकारी — सब WhatsApp पर",
+            opt_furniture: "कस्टम फर्नीचर", opt_kitchen: "किचन कैबिनेटरी", opt_bedroom: "बेडरूम और अलमारी", opt_flooring: "लकड़ी की फर्श", opt_interior: "पूरा घर इंटीरियर",
+            send_btn: "व्हाट्सएप पर भेजें", contact_title: "अपना सपना साकार करें", call_btn: "अभी कॉल करें"
+        },
+        gu: {
+            nav_home: "હોમ", nav_services: "સેવાઓ", nav_upload: "અપલોડ", nav_gallery: "ગેલેરી", nav_reviews: "સમીક્ષાઓ", nav_book: "બુકિંગ", nav_contact: "સંપર્ક",
+            hero_badge: "🏆 25+ વર્ષનો વારસો", hero_title1: "જ્યાં", hero_title2: "લાકડું", hero_title3: "આધુનિક આત્માને મળે છે",
+            hero_desc: "મનીષ તલપડા દ્વારા એડવાન્સ્ડ સુથારીકામ",
+            stat_projects: "પ્રોજેક્ટ્સ", stat_satisfaction: "સંતોષ", stat_experience: "અનુભવ",
+            book_btn: "વોટ્સએપ પર બુક કરો", hero_tag: "ચોકસાઈ અને જુસ્સો",
+            services_title: "અમારી સિગ્નેચર સેવાઓ", service1: "કસ્ટમ ફર્નિચર", service1_desc: "ટેબલ, ખુરશીઓ", service2: "મોડ્યુલર કિચન", service2_desc: "કેબિનેટ", service3: "બેડરૂમ સ્યુટ્સ", service3_desc: "વોર્ડરોબ", service4: "પ્રીમિયમ દરવાજા", service4_desc: "સોલિડ વુડ",
+            upload_title: "છબીઓ અપલોડ કરો", upload_text: "તમારા ફોલ્ડરમાંથી છબીઓ ખેંચો અને છોડો", select_btn: "ફોલ્ડરમાંથી પસંદ કરો",
+            gallery_title: "📸 બધી અપલોડ કરેલ છબીઓ", reviews_title: "ગ્રાહક પ્રેમ",
+            review1_text: '"શાનદાર કારીગરી! મનીષ ભાઈ દિગ્ગજ છે."', review2_text: '"સંપૂર્ણ ફિનિશ!"',
+            review3_text: '"મોડ્યુલર કિચન અદ્ભુત છે!"', review4_text: '"ગુજરાતમાં શ્રેષ્ઠ સેવા!"',
+            booking_title: "તમારી સલાહ બુક કરો", booking_desc: "નામ, મોબાઇલ, સરનામું — WhatsApp પર",
+            opt_furniture: "કસ્ટમ ફર્નિચર", opt_kitchen: "કિચન કેબિનેટરી", opt_bedroom: "બેડરૂમ", opt_flooring: "લાકડાનું ફ્લોરિંગ", opt_interior: "સંપૂર્ણ ઘર",
+            send_btn: "વોટ્સએપ પર મોકલો", contact_title: "તમારા સપનાને આકાર આપો", call_btn: "હવે કૉલ કરો"
+        }
+    };
+    let currentLang = 'en';
+    function updateLanguage(lang) {
+        currentLang = lang;
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if(translations[lang][key]) {
+                if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') el.placeholder = translations[lang][key];
+                else el.innerText = translations[lang][key];
+            }
+        });
+        document.querySelectorAll('.lang-btn-drag').forEach(btn => {
+            if(btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+    }
+    document.querySelectorAll('.lang-btn-drag').forEach(btn => {
+        btn.addEventListener('click', () => updateLanguage(btn.getAttribute('data-lang')));
+    });
+
+    // Loader
+    window.addEventListener('load', () => { setTimeout(() => { let ld = document.getElementById('loaderMaster'); ld.style.opacity='0'; setTimeout(()=>ld.style.display='none',800); }, 2000); });
+
+    // Draggable Widgets
+    $("#darkModeDrag").draggable({ containment: "window", scroll: false });
+    $("#langDrag").draggable({ containment: "window", scroll: false });
+
+    // Dark Mode Toggle
+    const darkBtn = document.getElementById('darkModeDrag');
+    darkBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        const icon = darkBtn.querySelector('i');
+        if(document.body.classList.contains('light-mode')) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+        else { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); }
+    });
+
+    // ========== IMAGE STORAGE & GALLERY (Auto store, show all) ==========
+    let uploadedImages = JSON.parse(localStorage.getItem('hetvik_uploads') || '[]');
+    
+    function renderAllGallery() {
+        const container = document.getElementById('allImagesGallery');
+        const countSpan = document.getElementById('imageCount');
+        if(!container) return;
+        if(uploadedImages.length === 0) {
+            container.innerHTML = '<div class="empty-gallery">📭 No images uploaded yet. Please upload images from the Upload section above.</div>';
+            if(countSpan) countSpan.innerHTML = '(0)';
+            return;
+        }
+        if(countSpan) countSpan.innerHTML = `(${uploadedImages.length})`;
+        container.innerHTML = '';
+        uploadedImages.forEach((src, idx) => {
+            const card = document.createElement('div'); card.className = 'gallery-card';
+            card.innerHTML = `<img src="${src}" alt="Uploaded Image"><div class="delete-btn" data-idx="${idx}"><i class="fas fa-trash-alt"></i></div>`;
+            container.appendChild(card);
+        });
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.getAttribute('data-idx'));
+                uploadedImages.splice(idx, 1);
+                localStorage.setItem('hetvik_uploads', JSON.stringify(uploadedImages));
+                renderAllGallery();
+            });
+        });
+    }
+    
+    function addImages(files) {
+        Array.from(files).forEach(file => {
+            if(file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => { 
+                    uploadedImages.push(e.target.result); 
+                    localStorage.setItem('hetvik_uploads', JSON.stringify(uploadedImages)); 
+                    renderAllGallery();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        alert(`✅ ${files.length} image(s) uploaded and stored in gallery!`);
+    }
+    
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const selectBtn = document.getElementById('selectFilesBtn');
+    uploadArea.addEventListener('click', () => fileInput.click());
+    selectBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => addImages(e.target.files));
+    uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('drag-over'); });
+    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+    uploadArea.addEventListener('drop', (e) => { e.preventDefault(); uploadArea.classList.remove('drag-over'); addImages(e.dataTransfer.files); });
+    
+    renderAllGallery();
+
+    // WhatsApp Booking
+    document.getElementById('whatsappBookingForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('fullname').value.trim();
+        const mobile = document.getElementById('mobileno').value.trim();
+        const addr = document.getElementById('address').value.trim();
+        const work = document.getElementById('workType').options[document.getElementById('workType').selectedIndex].text;
+        const detail = document.getElementById('workDetail').value.trim();
+        if(!name || !mobile || !addr || !detail) { alert("Please fill all fields"); return; }
+        const msg = `🪵 NEW BOOKING - HETVIK FURNITURE%0A👤 Name: ${name}%0A📞 Mobile: ${mobile}%0A🏠 Address: ${addr}%0A🔨 Service: ${work}%0A📝 Details: ${detail}`;
+        window.open(`https://wa.me/919023449884?text=${msg}`, '_blank');
+        alert("✅ Booking sent to Manish Talpada!");
+        e.target.reset();
+    });
+
+    // Mobile Menu
+    const menuBtn = document.getElementById('mobileMenuBtn'), panel = document.getElementById('mobilePanel'), closeMb = document.getElementById('closeMobile');
+    menuBtn.onclick = () => panel.style.left = '0';
+    closeMb.onclick = () => panel.style.left = '-100%';
+    document.querySelectorAll('.nav-links a, .mobile-nav-panel a').forEach(a => a.addEventListener('click', function(e) {
+        const href = this.getAttribute('href'); if(href && href.startsWith('#')) { e.preventDefault(); document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' }); panel.style.left = '-100%'; }
+    }));
+    document.getElementById('heroBookBtn')?.addEventListener('click', () => document.getElementById('booking').scrollIntoView({ behavior: 'smooth' }));
+
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.service-card-unique, .gallery-card, .person-review').forEach(el => {
+        gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 88%' }, opacity: 0, y: 40, duration: 0.6 });
+    });
+</script>
+</body>
+</html>
