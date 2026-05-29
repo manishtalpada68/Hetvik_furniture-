@@ -1,1 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Hetvik Furniture | Master Carpenter Manish Talpada</title>
+    <meta name="description" content="Premium custom furniture, modular kitchen, bedroom suites & interior woodwork by Master Carpenter Manish Talpada. 25+ years of craftsmanship excellence in Gujarat.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
+<!-- ========== LOADER ========== -->
+<div class="loader-master" id="loaderMaster">
+    <div class="loader-ring">
+        <div class="loader-inner"><i class="fas fa-hammer"></i></div>
+    </div>
+    <div class="loader-text-animate">HETVIK FURNITURE</div>
+    <div class="loader-sub">Manish Talpada • Master Artisan 🪚</div>
+    <div class="loader-progress"><div class="loader-progress-bar"></div></div>
+</div>
+
+<!-- ========== FLOATING WHATSAPP CTA ========== -->
+<a href="https://wa.me/919023449884" target="_blank" class="floating-cta" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+<!-- ========== DRAGGABLE WIDGETS ========== -->
+<div id="darkModeDrag" class="draggable-widget theme-toggle-drag"><i class="fas fa-moon"></i></div>
+<div id="langDrag" class="draggable-widget lang-switch-drag">
+    <button class="lang-btn-drag active" data-lang="en">EN</button>
+    <button class="lang-btn-drag" data-lang="hi">हिंदी</button>
+    <button class="lang-btn-drag" data-lang="gu">ગુજરાતી</button>
+</div>
+
+<!-- ========== NAVBAR ========== -->
+<div class="navbar">
+    <div class="logo"><h1>Hetvik <span class="gold">Furniture</span></h1></div>
+    <div class="nav-links">
+        <a href="#home" data-key="nav_home">Home</a>
+        <a href="#services" data-key="nav_services">Services</a>
+        <a href="#gallery" data-key="nav_gallery">Gallery</a>
+        <a href="#process" data-key="nav_process">Process</a>
+        <a href="#materials" data-key="nav_materials">Materials</a>
+        <a href="#reviews" data-key="nav_reviews">Reviews</a>
+        <a href="#booking" data-key="nav_book">Book</a>
+        <a href="#contact" data-key="nav_contact">Contact</a>
+    </div>
+    <div class="menu-icon" id="mobileMenuBtn"><i class="fas fa-bars"></i></div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-nav-panel" id="mobilePanel">
+    <div style="font-size:2rem; text-align:right; cursor:pointer;" id="closeMobile">&times;</div>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#process">Process</a>
+    <a href="#materials">Materials</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#booking">Book</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<!-- ========== MARQUEE ========== -->
+<div class="marquee-section">
+    <div class="marquee-content">
+        🪵 CUSTOM FURNITURE • 🏠 MODULAR KITCHEN • 🛏️ BEDROOM SUITES • 🚪 PREMIUM DOORS • 🪵 CUSTOM FURNITURE • 🏠 MODULAR KITCHEN • 🛏️ BEDROOM SUITES • 🚪 PREMIUM DOORS • 🪵 CUSTOM FURNITURE • 🏠 MODULAR KITCHEN • 🛏️ BEDROOM SUITES • 🚪 PREMIUM DOORS • 
+    </div>
+</div>
+
+<!-- ========== HERO ========== -->
+<section id="home">
+    <div class="hero-wrap">
+        <div class="hero-grid">
+            <div class="hero-left">
+                <div class="hero-badge" data-key="hero_badge"><i class="fas fa-crown"></i> 25+ Years Legacy</div>
+                <h2><span data-key="hero_title1">Where</span> <span class="hero-highlight" data-key="hero_title2">Wood</span> <span data-key="hero_title3">Meets Modern Soul</span></h2>
+                <p class="hero-desc" data-key="hero_desc">Advanced carpentry by Manish Talpada — custom furniture, kitchen cabinets, bedroom sets, and premium interior woodwork.</p>
+                <div class="stats">
+                    <div><p class="count" data-target="520">0</p><span data-key="stat_projects">Projects</span></div>
+                    <div><p>100%</p><span data-key="stat_satisfaction">Satisfaction</span></div>
+                    <div><p>25 Yrs</p><span data-key="stat_experience">Experience</span></div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn" id="heroBookBtn"><i class="fab fa-whatsapp"></i> <span data-key="book_btn">Book via WhatsApp</span></button>
+                    <a href="#gallery" class="btn btn-outline"><i class="fas fa-images"></i> View Gallery</a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-card">
+                    <div class="hero-card-content">
+                        <i class="fas fa-tree hero-card-icon"></i>
+                        <p style="font-size:1.1rem; color:var(--text-secondary);"><i class="fas fa-tools"></i> <span data-key="hero_tag">Precision & Passion</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== COUNTER SECTION ========== -->
+<section class="counter-section">
+    <div class="counter-grid">
+        <div class="counter-item"><h3 class="count" data-target="520">0</h3><p data-key="counter_projects">Projects Completed</p></div>
+        <div class="counter-item"><h3 class="count" data-target="350">0</h3><p data-key="counter_clients">Happy Clients</p></div>
+        <div class="counter-item"><h3 class="count" data-target="25">0</h3><p data-key="counter_years">Years Experience</p></div>
+        <div class="counter-item"><h3 class="count" data-target="15">0</h3><p data-key="counter_team">Expert Craftsmen</p></div>
+        <div class="counter-item"><h3 class="count" data-target="100">0</h3><p data-key="counter_satisfaction">% Satisfaction</p></div>
+    </div>
+</section>
+
+<!-- ========== TRUST BADGES ========== -->
+<section class="trust-section">
+    <div class="trust-grid">
+        <div class="trust-item"><i class="fas fa-shield-alt"></i><span>Premium Quality</span></div>
+        <div class="trust-item"><i class="fas fa-truck"></i><span>Free Delivery</span></div>
+        <div class="trust-item"><i class="fas fa-tools"></i><span>Free Installation</span></div>
+        <div class="trust-item"><i class="fas fa-undo"></i><span>1 Year Warranty</span></div>
+        <div class="trust-item"><i class="fas fa-hand-holding-usd"></i><span>Best Price</span></div>
+    </div>
+</section>
+
+<!-- ========== SERVICES ========== -->
+<section id="services">
+    <h2 class="section-title"><span data-key="services_title">Our Signature Services</span></h2>
+    <div class="services-show">
+        <div class="service-card-unique"><i class="fas fa-couch"></i><h3 data-key="service1">Bespoke Furniture</h3><p data-key="service1_desc">Tables, Chairs, Sofas</p></div>
+        <div class="service-card-unique"><i class="fas fa-kitchen-set"></i><h3 data-key="service2">Modular Kitchen</h3><p data-key="service2_desc">Cabinets & Shutters</p></div>
+        <div class="service-card-unique"><i class="fas fa-bed"></i><h3 data-key="service3">Bedroom Suites</h3><p data-key="service3_desc">Wardrobes, Headboards</p></div>
+        <div class="service-card-unique"><i class="fas fa-door-open"></i><h3 data-key="service4">Premium Doors</h3><p data-key="service4_desc">Solid Wood Designs</p></div>
+    </div>
+</section>
+
+<!-- ========== GALLERY (Auto-load from upload/) ========== -->
+<section id="gallery" class="gallery-section">
+    <h2 class="section-title"><span data-key="gallery_title">📸 Our Craftsmanship</span></h2>
+    <p style="text-align:center; color:var(--text-secondary); margin-bottom:2rem;" data-key="gallery_desc">Images auto-loaded from upload/ folder</p>
+    <div id="folderGallery" class="gallery-grid-new">
+        <div class="gallery-empty">
+            <i class="fas fa-folder-open"></i>
+            <p data-key="gallery_empty">Images will appear here from the upload/ folder.<br>Place your JPG/PNG images as upload/1.jpg, upload/2.jpg, etc.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section id="process" class="process-section">
+    <h2 class="section-title"><span data-key="process_title">Our Process</span></h2>
+    <div class="process-grid">
+        <div class="process-card"><div class="process-step">1</div><i class="fas fa-comments"></i><h3 data-key="process1">Consultation</h3><p data-key="process1_desc">Discuss your vision, needs & budget</p></div>
+        <div class="process-card"><div class="process-step">2</div><i class="fas fa-ruler-combined"></i><h3 data-key="process2">Design & Measure</h3><p data-key="process2_desc">Precise measurements & 3D design</p></div>
+        <div class="process-card"><div class="process-step">3</div><i class="fas fa-cut"></i><h3 data-key="process3">Crafting</h3><p data-key="process3_desc">Expert woodworking with finest materials</p></div>
+        <div class="process-card"><div class="process-step">4</div><i class="fas fa-paint-roller"></i><h3 data-key="process4">Finishing</h3><p data-key="process4_desc">Polish, paint & quality check</p></div>
+        <div class="process-card"><div class="process-step">5</div><i class="fas fa-truck-loading"></i><h3 data-key="process5">Delivery</h3><p data-key="process5_desc">Safe delivery & installation at your home</p></div>
+    </div>
+</section>
+
+<!-- ========== MATERIALS ========== -->
+<section id="materials" class="materials-section">
+    <h2 class="section-title"><span data-key="materials_title">Premium Materials</span></h2>
+    <div class="materials-grid">
+        <div class="material-card"><div class="material-icon"><i class="fas fa-tree"></i></div><h4>Teak Wood</h4><p>Grade A premium teak for durability</p></div>
+        <div class="material-card"><div class="material-icon"><i class="fas fa-layer-group"></i></div><h4>Plywood</h4><p>Marine grade BWP plywood</p></div>
+        <div class="material-card"><div class="material-icon"><i class="fas fa-gem"></i></div><h4>HDHMR</h4><p>High density moisture resistant</p></div>
+        <div class="material-card"><div class="material-icon"><i class="fas fa-paint-brush"></i></div><h4>PU Polish</h4><p>Premium PU & melamine finish</p></div>
+        <div class="material-card"><div class="material-icon"><i class="fas fa-shield-alt"></i></div><h4>Hardware</h4><p>Hettich, Hafele & premium fittings</p></div>
+    </div>
+</section>
+
+<!-- ========== PROJECTS / TRANSFORMATIONS ========== -->
+<section class="comparison-section">
+    <h2 class="section-title"><span data-key="comparison_title">Transformations</span></h2>
+    <div class="comparison-grid">
+        <div class="comparison-card">
+            <div class="img-wrap">
+                <img src="upload/placeholder1.jpg" alt="Kitchen" onerror="this.src='https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop'">
+                <span class="img-tag">MODULAR KITCHEN</span>
+            </div>
+            <div class="comparison-info"><h4 data-key="comp1_title">Modern Kitchen Transformation</h4><p data-key="comp1_desc">Complete modular kitchen with premium cabinets, soft-close drawers, and elegant granite countertop.</p></div>
+        </div>
+        <div class="comparison-card">
+            <div class="img-wrap">
+                <img src="upload/placeholder2.jpg" alt="Bedroom" onerror="this.src='https://images.unsplash.com/photo-1616594039964-40891a909d99?w=600&h=400&fit=crop'">
+                <span class="img-tag">BEDROOM SUITE</span>
+            </div>
+            <div class="comparison-info"><h4 data-key="comp2_title">Luxury Bedroom Suite</h4><p data-key="comp2_desc">Custom wardrobe with sliding doors, king-size bed with storage, and matching side tables.</p></div>
+        </div>
+        <div class="comparison-card">
+            <div class="img-wrap">
+                <img src="upload/placeholder3.jpg" alt="Living Room" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=400&fit=crop'">
+                <span class="img-tag">LIVING ROOM</span>
+            </div>
+            <div class="comparison-info"><h4 data-key="comp3_title">Living Room Makeover</h4><p data-key="comp3_desc">Designer sofa set, TV unit with LED backlight, and center table with glass top.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== REVIEWS ========== -->
+<section id="reviews">
+    <h2 class="section-title"><span data-key="reviews_title">Client Love</span></h2>
+    <div class="reviews-unique">
+        <div class="person-review">
+            <div class="person-review-header">
+                <div class="person-img"><img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Sneha"></div>
+                <div class="person-info"><h4>Sneha Mehta</h4><div class="stars">★★★★★</div></div>
+            </div>
+            <p data-key="review1_text">"Outstanding craftsmanship! Manish bhai is a legend."</p>
+        </div>
+        <div class="person-review">
+            <div class="person-review-header">
+                <div class="person-img"><img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Rajesh"></div>
+                <div class="person-info"><h4>Rajesh K.</h4><div class="stars">★★★★★</div></div>
+            </div>
+            <p data-key="review2_text">"Perfect finish & timely delivery. Highly recommend!"</p>
+        </div>
+        <div class="person-review">
+            <div class="person-review-header">
+                <div class="person-img"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya"></div>
+                <div class="person-info"><h4>Priya Sharma</h4><div class="stars">★★★★★</div></div>
+            </div>
+            <p data-key="review3_text">"Modular kitchen is stunning! Thank you Hetvik Furniture."</p>
+        </div>
+        <div class="person-review">
+            <div class="person-review-header">
+                <div class="person-img"><img src="https://randomuser.me/api/portraits/men/91.jpg" alt="Vikram"></div>
+                <div class="person-info"><h4>Vikram Singh</h4><div class="stars">★★★★★</div></div>
+            </div>
+            <p data-key="review4_text">"Best carpentry service in Gujarat! Very professional."</p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BOOKING ========== -->
+<section id="booking">
+    <div class="booking-zone">
+        <h2><i class="fab fa-whatsapp"></i> <span data-key="booking_title">Book Your Consultation</span></h2>
+        <p data-key="booking_desc">Name, Mobile, Address, Work details — sab WhatsApp pe aa jayegi</p>
+        <form id="whatsappBookingForm">
+            <div class="form-grid">
+                <input type="text" id="fullname" placeholder="Full Name *" required>
+                <input type="tel" id="mobileno" placeholder="WhatsApp Number *" required>
+            </div>
+            <input type="text" id="address" placeholder="City / Address *" required>
+            <select id="workType">
+                <option data-key="opt_furniture">Custom Furniture</option>
+                <option data-key="opt_kitchen">Kitchen Cabinetry</option>
+                <option data-key="opt_bedroom">Bedroom & Wardrobe</option>
+                <option data-key="opt_flooring">Wooden Flooring</option>
+                <option data-key="opt_interior">Complete Home Interior</option>
+            </select>
+            <textarea rows="3" id="workDetail" placeholder="Kya banwana hai? (e.g. dining table, modular kitchen...)" required></textarea>
+            <button type="submit" class="btn" style="background:#25D366; width:100%; justify-content:center;"><i class="fab fa-whatsapp"></i> <span data-key="send_btn">Send on WhatsApp</span></button>
+        </form>
+    </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact">
+    <div class="booking-zone" style="background:var(--bg-secondary);">
+        <div style="text-align:center;">
+            <h2><span data-key="contact_title">Let's Craft Your Dream</span></h2>
+            <div class="contact-grid">
+                <a href="tel:9023449884" class="contact-card"><i class="fas fa-phone-alt"></i><span data-key="call_btn">Call Now</span></a>
+                <a href="https://www.instagram.com/iammanishtalpada" target="_blank" class="contact-card"><i class="fab fa-instagram"></i><span>@iammanishtalpada</span></a>
+                <a href="https://wa.me/919023449884" target="_blank" class="contact-card"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== LIGHTBOX ========== -->
+<div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightboxClose">&times;</div>
+    <div class="lightbox-nav lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></div>
+    <img id="lightboxImg" src="" alt="Gallery Image">
+    <div class="lightbox-nav lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></div>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <p>© 2026 Hetvik Furniture — Advanced Carpentry by Manish Talpada | <a href="https://www.instagram.com/iammanishtalpada" target="_blank"><i class="fab fa-instagram"></i> @iammanishtalpada</a></p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
